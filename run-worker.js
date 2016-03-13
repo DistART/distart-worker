@@ -29,9 +29,10 @@ function processJob(jobID, error) {
 
         var finito = function(status, outputBlobName, message) {
 
-            jobTable.updateJobProperty(job.jobID, 'status', status, function(error, result, response, job) {
-                jobTable.updateJobProperty(job.jobID, 'outputBlobName', outputBlobName, function(error, result, response, job) {
-                    jobTable.updateJobProperty(job.jobID, 'message', message, function(error, result, response, job) {/* nothing to do here */
+
+            jobTable.updateJobProperty(job.jobID, 'outputBlobName', outputBlobName, function(error, result, response, job) {
+                jobTable.updateJobProperty(job.jobID, 'message', message, function(error, result, response, job) {/* nothing to do here */
+                    jobTable.updateJobProperty(job.jobID, 'status', status, function(error, result, response, job) {
                         jobTable.getJob(job.jobID, function(error, result, response, job_){ console.log('job is now: ', job_)})});
                 });
             });

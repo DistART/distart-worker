@@ -25,7 +25,7 @@ function updateJob(job, callback) {
         PartitionKey: entGen.String(GLOBAL_PARTITION),
         RowKey: entGen.String(job.jobID),
         jobID: entGen.String(job.jobID),
-        parameters: entGen.String(JSON.stringify(job.parameters)),
+        parameters: entGen.String(JSON.stringify(job.parameters ? job.parameters : {})),
         imageBlobName: entGen.String(job.imageBlobName),
         patternBlobName: entGen.String(job.patternBlobName),
         status: entGen.String(job.status),

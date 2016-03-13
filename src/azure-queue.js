@@ -80,7 +80,9 @@ function nextJobPoll_() {
 }
 
 // start queue check loop
-nextJobPoll_();
+function startPollCycle() {
+    nextJobPoll_();
+}
 
 function fetchNextJob(callback) {
     nextJobQueue_.push(callback);
@@ -116,4 +118,5 @@ function jobFinished(job, status, outputURL, message, callback) {
 module.exports = {
     fetchNextJob: fetchNextJob,
     pushJob: pushJob,
+    startPollCycle: startPollCycle,
 };

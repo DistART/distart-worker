@@ -96,25 +96,28 @@ function loop() {
 //start the loop()
 loop();
 
+// start the queue poll cycle
+jobQueue.startPollCycle();
 
-setTimeout(function(){
-    var job = {
-        jobID: 'matt-test-job-01',
-        imageBlobName: 'test1-matt',
-        patternBlobName: 'test2-matt',
-        status: 'WAITING',
-        parameters: {},
-    };
 
-    console.log('adding job to queue', job.jobID);
-
-    jobTable.updateJob(job, function(error, result, response) {
-
-        jobQueue.pushJob(job.jobID, function(error, result) {
-            //console.log(error, result);
-
-            console.log('job added to queue', job.jobID);
-        })
-
-    });
-}, 2500);
+//setTimeout(function(){
+//    var job = {
+//        jobID: 'new-fancy-job-for-ec2',
+//        imageBlobName: 'fa6844b7a0756fa2df1139334fe9d84071b5befa49fe1e45478a863cf85d4d38_1',
+//        patternBlobName: '1_1',
+//        status: 'WAITING',
+//        //parameters: {},
+//    };
+//
+//    console.log('adding job to queue', job.jobID);
+//
+//    jobTable.updateJob(job, function(error, result, response) {
+//
+//        jobQueue.pushJob(job.jobID, function(error, result) {
+//            //console.log(error, result);
+//
+//            console.log('job added to queue', job.jobID);
+//        })
+//
+//    });
+//}, 2500);

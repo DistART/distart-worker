@@ -1,7 +1,5 @@
 
 var TODO_QUEUE = 'distart-todo';
-var DOING_QUEUE = 'distart-doing';
-var DONE_QUEUE = 'distart-done';
 
 var azure = require('azure-storage');
 
@@ -38,6 +36,12 @@ function putMessage_(queue, message, callback) {
     });
 }
 
+function pushJob(jobID, callback) {
+    putMessage_(TODO_QUEUE, jobID, function(error, result) {
+        callback(error, result);
+    })
+}
+
 function maybeCreateQueue(queue) {
     queueSvc.createQueueIfNotExists(queue, function(error, result, response){
         if(!error){
@@ -50,8 +54,6 @@ function maybeCreateQueue(queue) {
 
 // sort of a touch command, to make sure queues exist
 maybeCreateQueue(TODO_QUEUE);
-maybeCreateQueue(DOING_QUEUE);
-maybeCreateQueue(DONE_QUEUE);
 
 
 // polls the nextJobQueue and the Azure to do Queue every second
@@ -63,9 +65,8 @@ function nextJobPoll_() {
 
         if (nextJobQueue_.length > 0) {
             fetchMessage_(TODO_QUEUE, function(job, error){
-                console.log('polled the job queue: ', job);
                 if (job) {
-                    console.log(nextJobQueue_[0]);
+
                     (nextJobQueue_.shift())(job, error);
                 }
                 // if not , no new job was found, let's wait for next job queue
@@ -85,6 +86,7 @@ function fetchNextJob(callback) {
     nextJobQueue_.push(callback);
 }
 
+/* Commented because useless but left because usefull for information
 function jobFinished(job, status, outputURL, message, callback) {
     newJob = job;
     job.status = status;
@@ -94,6 +96,7 @@ function jobFinished(job, status, outputURL, message, callback) {
         callback(err, result);
     });
 }
+*/
 
 // some testing
 //putMessage_(TODO_QUEUE, {prop1: "hello", prop2: "dude"}, function(error, result) {
@@ -102,19 +105,6 @@ function jobFinished(job, status, outputURL, message, callback) {
 //        console.log(message, error)
 //    });
 //});
-
-setTimeout(function(){
-    var job = {
-        jobID: 'matt-test-job-01',
-        imageBlobName: 'test1-matt',
-        patternBlobName: 'test2-matt',
-        parameters: {},
-    };
-    console.log('adding job to queue', job)
-    putMessage_(TODO_QUEUE, job, function(error, result) {
-        console.log(error, result);
-    })
-}, 2000);
 
 //jobFinished({jobID: 'test-id'}, 'DONE', 'fileBlobName', 'this is a message', function(err, result){
 //    console.log('jobFinished', err, result);
@@ -125,5 +115,5 @@ setTimeout(function(){
 
 module.exports = {
     fetchNextJob: fetchNextJob,
-    jobFinished: jobFinished,
+    pushJob: pushJob,
 };

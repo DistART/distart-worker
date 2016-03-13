@@ -45,7 +45,7 @@ function getJob(jobID, callback) {
             var b = response.body;
             job = {
                 jobID: b.jobID,
-                parameters: b.parameters,
+                parameters: JSON.parse(b.parameters),
                 imageBlobName: b.imageBlobName,
                 patternBlobName: b.patternBlobName,
                 status: b.status,
@@ -73,26 +73,26 @@ function updateJobProperty(jobID, propertyName, propertyValue, callback) {
 }
 
 // some tests
-updateJob({
-    jobID: 'matt-test-job-01',
-    imageBlobName: 'test1-matt',
-    patternBlobName: 'test2-matt',
-    parameters: {},
-}, function(error, result, response) {
-    console.log(error, result, response);
-
-    getJob('matt-test-job-01', function(error, result, response, job) {
-        console.log('table contains : ', job);
-
-        updateJobProperty(job.jobID, 'imageBlobName', 'updated-test-val', function(error, result, response, job) {
-            console.log('updated job: ', job);
-
-            getJob('matt-test-job-01', function(error, result, response, job) {
-                console.log('table contains after update : ', job);
-            });
-        })
-    });
-});
+//updateJob({
+//    jobID: 'matt-test-job-01',
+//    imageBlobName: 'test1-matt',
+//    patternBlobName: 'test2-matt',
+//    parameters: {},
+//}, function(error, result, response) {
+//    console.log(error, result, response);
+//
+//    getJob('matt-test-job-01', function(error, result, response, job) {
+//        console.log('table contains : ', job);
+//
+//        updateJobProperty(job.jobID, 'imageBlobName', 'updated-test-val', function(error, result, response, job) {
+//            console.log('updated job: ', job);
+//
+//            getJob('matt-test-job-01', function(error, result, response, job) {
+//                console.log('table contains after update : ', job);
+//            });
+//        })
+//    });
+//});
 
 module.exports = {
     updateJob: updateJob,

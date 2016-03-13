@@ -71,8 +71,8 @@ function downloadImages(blobNames, localDir, callback) {
 //    });
 //});
 
-uploadFile_('output/test/file1.txt', 'test1-matt', INPUT_CONTAINER, function(error, result, response) {console.log(error, result, response)})
-uploadFile_('output/test/file2.txt', 'test2-matt', INPUT_CONTAINER, function(error, result, response) {console.log(error, result, response)})
+uploadFile_('output/test/file1.txt', 'test1-matt', INPUT_CONTAINER, function(error, result, response) {/*console.log(error, result, response)*/})
+uploadFile_('output/test/file2.txt', 'test2-matt', INPUT_CONTAINER, function(error, result, response) {/*console.log(error, result, response)*/})
 
 module.exports = {
     uploadImage: uploadImage,

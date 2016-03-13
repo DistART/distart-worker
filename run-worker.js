@@ -22,8 +22,10 @@ function processJob(jobID, error) {
 
         var job = job_;
 
+        console.log('job content: ', jobID);
+
         // create temporary folder
-        var destFolder = os.tmpdir() + '/' + job.jobID + '/';
+        var destFolder = os.tmpdir() + '/' + job.jobID;
 
         var finito = function(status, outputBlobName, message) {
 

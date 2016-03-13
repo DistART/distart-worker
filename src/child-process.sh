@@ -4,8 +4,17 @@ self="$0"
 image_path="$1"
 pattern_path="$2"
 out_path="$3"
+image_size="$4"
+num_iteractions="$5"
 
-th neural_style.lua -image_size 100 -num_iterations 500 -style_image "$pattern_path" -content_image "$out_path" -backend cudnn -output_image "$out_path"
+cd "NEURAL_STYLE_HOME"
+
+deepart_command="th neural_style.lua -image_size \"$image_size\" -num_iterations \"$num_iteractions\" -style_image \"$pattern_path\" -content_image \"$image_path\" -backend cudnn -output_image \"$out_path\""
+
+echo running command:
+echo "$deepart_command"
+
+`"$deepart_command"`
 
 #echo $self $image_path $pattern_path $out_path
 #

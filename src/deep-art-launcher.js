@@ -6,7 +6,17 @@ function run(imagePath, patternPath, destFolder, parameters, callback) {
     // let's try to avoid file colision ... hum hum
     var outFilePath = destFolder + '/outFile_asdgh234sd00jsmlsdfkl08350oijoensldfhg.jpg';
 
-    var ls = spawn('sh', ['./src/child-process.sh', imagePath, patternPath, outFilePath]);
+    // load parameters with defaults
+    var imageSize = 500;
+    var numberIterations = 300;
+
+    if (parameters) {
+        numberIterations = parameters.numberIterations || numberIterations;
+        imageSize = parameters.imageSize || imageSize;
+    }
+
+
+    var ls = spawn('sh', ['./src/child-process.sh', imagePath, patternPath, outFilePath, imageSize, numberIterations]);
 
     ls.stdout.on('data', function(data) {
         console.log('stdout: ' + data);

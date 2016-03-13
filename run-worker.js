@@ -2,6 +2,7 @@
 var jobQueue = require('./src/azure-queue.js');
 var imageStore = require('./src/azure-blob-storage.js');
 var jobLauncher = require('./src/deep-art-launcher.js');
+var jobTable = require('./src/azure-table.js');
 
 // node imports
 var os = require('os');

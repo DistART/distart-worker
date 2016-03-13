@@ -28,7 +28,6 @@ function fetchMessage_(queue, callback) {
     });
 }
 
-
 function putMessage_(queue, message, callback) {
 
     // we serialize message in the simplest way possible

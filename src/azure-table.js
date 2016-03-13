@@ -16,7 +16,9 @@ tableSvc.createTableIfNotExists(GLOBAL_TABLE, function(error, result, response){
     });
 });
 
-function createJob(job, callback) {
+
+// also used to create a JOB
+function updateJob(job, callback) {
     //https://azure.microsoft.com/en-us/documentation/articles/storage-nodejs-how-to-use-table-storage/
     var entGen = azure.TableUtilities.entityGenerator;
     var jobEntity = {
@@ -55,8 +57,23 @@ function getJob(jobID, callback) {
     });
 }
 
+function updateJobProperty(jobID, propertyName, propertyValue, callback) {
+    getJob(jobID, function(error, result, response, job) {
+        if (job) {
+
+            job[propertyName] = propertyValue;
+
+            updateJob(job, function(error, result, response) {
+                callback(error, result, response, job);
+            })
+        } else {
+            callback(error, result, response, job);
+        }
+    })
+}
+
 // some tests
-createJob({
+updateJob({
     jobID: 'matt-test-job-01',
     imageBlobName: 'test1-matt',
     patternBlobName: 'test2-matt',
@@ -66,10 +83,19 @@ createJob({
 
     getJob('matt-test-job-01', function(error, result, response, job) {
         console.log('table contains : ', job);
+
+        updateJobProperty(job.jobID, 'imageBlobName', 'updated-test-val', function(error, result, response, job) {
+            console.log('updated job: ', job);
+
+            getJob('matt-test-job-01', function(error, result, response, job) {
+                console.log('table contains after update : ', job);
+            });
+        })
     });
 });
 
 module.exports = {
-    createJob: createJob,
-    getJob: getJob
+    updateJob: updateJob,
+    getJob: getJob,
+    updateJobProperty: updateJobProperty
 };

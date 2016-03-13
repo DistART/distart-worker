@@ -69,7 +69,7 @@ function processJob(jobID, error) {
 
                     console.log('job runner passed: ');
 
-                    var uploadBlobName = job.jobID + ".out";
+                    var uploadBlobName = job.jobID + ".out.jpeg";
 
                     // Upload image to blobstore
                     imageStore.uploadImage(outFile, uploadBlobName, function(err, outputBlobName){

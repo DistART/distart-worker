@@ -14,12 +14,22 @@ git clone https://github.com/jcjohnson/neural-style
 cd neural-style
 sh models/download_models.sh
 
+# let's install nodejs
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install -y nodejs
+source ~/.bash_profile
+
 
 #clone our worker client
 cd ~/
 git clone https://github.com/DistArt/distart-worker.git
-cd distart-worker
+cd distart-worker/
+
 
 npm install
 
+echo ** Setup finish **
+echo you now have to set the following environment variables:
+echo NEURAL_STYLE_HOME, AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY, AZURE_STORAGE_CONNECTION_STRING
+echo ___ run the server with \'node run-server.js\' ___
 

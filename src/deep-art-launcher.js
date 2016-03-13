@@ -7,8 +7,8 @@ function run(imagePath, patternPath, destFolder, parameters, callback) {
     var outFilePath = destFolder + '/outFile_asdgh234sd00jsmlsdfkl08350oijoensldfhg.jpg';
 
     // load parameters with defaults
-    var imageSize = 100;
-    var numberIterations = 300;
+    var imageSize = 300;
+    var numberIterations = 500;
 
     if (parameters) {
         numberIterations = parameters.numberIterations || numberIterations;
